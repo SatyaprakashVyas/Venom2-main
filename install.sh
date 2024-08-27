@@ -1,5 +1,22 @@
-sudo apt update
-sudo apt install python3-pip -y
-pip install fastapi psutil
-sudo apt install unzip -y
-unzip dist.zip
+mkdir -p .devcontainer
+cat <<EOL > .devcontainer/devcontainer.json
+{
+    "name": "My Codespace",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.8",
+    "postStartCommand": "python3 /workspaces/Venom2-main/venom.py",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.pythonPath": "/usr/local/bin/python"
+            },
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    }
+}
+EOL
+
+git add .devcontainer/devcontainer.json
+git commit -m "Add postStartCommand to run Python script automatically"
+git push origin main
